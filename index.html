@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 
-
 <html lang="en">
 
 <style>
@@ -92,6 +91,23 @@
         font-size: inherit;
     }
 
+    hr {
+        border: none;
+        height: 2px;
+        background-color: #1e1e1e;
+        margin: 20px 0;
+    }
+
+    .invisible {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: 2s ease;
+    }
+    .fade-in {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
     
 </style>
 
@@ -103,17 +119,21 @@
 
     <title>CarlosDCpycpp Portfolio</title>
     <link rel="icon" href="favicon.png" type="image/png">
+    
+
 </head>
 
 <body>
 
     <h1>My Portfolio</h1>
+    <hr>
 
     <h2>Table of Contents</h2>
     <div class="main">
         <div class="sub" onclick=""><h3><a class="in-page" href="#about_me">About Me</a></h3></a></div>
         <div class="sub"><h3><a class="in-page" href="#projects">Projects</a></h3></a></div>
     </div>
+    <hr>
 
     <h2 id="about_me">About Me</h2>
     <p>
@@ -125,6 +145,7 @@
         You can check my projects in  <a href="https://github.com/CarlosDCpycpp">my github page</a>
         including <a href="https://github.com/CarlosDCpycpp/portfolio">this website</a>.
     </p>
+    <hr>
 
     <h2 id="projects">Projects</h2>
     <div class="main">
@@ -179,12 +200,30 @@
     <a class="in-page" href="#" style="font-size: 1em;">Top of the page</a>
 
     <script>
-          document.querySelectorAll('a').forEach(a => {
-                if (!a.classList.contains('in-page')) {
-                    a.setAttribute('target', '_blank');
-                    a.setAttribute('rel', 'noopener noreferrer');
-  }
-});
+        document.querySelectorAll('a').forEach(a => {
+            if (!a.classList.contains('in-page')) {
+                a.setAttribute('target', '_blank');
+                a.setAttribute('rel', 'noopener noreferrer');
+                }
+            }
+        );
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    } else {
+                        entry.target.classList.remove('fade-in'); // reset when offscreen
+                    }
+                });
+            });
+          
+        document.querySelectorAll('.project').forEach(el => {
+            el.classList.add('invisible');
+            observer.observe(el);
+        });
+
+        
     </script>
 
 
